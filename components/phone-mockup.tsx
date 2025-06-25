@@ -96,16 +96,16 @@ export function PhoneMockup() {
 
             {/* Available Advance */}
             <div className="px-6">
-              <Card className="bg-gradient-to-r from-green-500/20 to-blue-500/20 border-green-500/30 backdrop-blur-sm p-4">
+              <Card className="bg-gradient-to-r from-gray-800/90 to-gray-900/90 border-green-400/60 backdrop-blur-sm p-4 shadow-xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-green-300 text-sm">Available Advance</p>
-                    <div className="text-2xl font-bold text-white animate-count-up">
+                    <p className="text-green-200 text-sm font-medium">Available Advance</p>
+                    <div className="text-2xl font-bold text-white drop-shadow-lg animate-count-up">
                       {formatCurrency(availableAdvance)}
                     </div>
                   </div>
-                  <div className="w-12 h-12 bg-green-500/30 rounded-full flex items-center justify-center">
-                    <DollarSign className="w-6 h-6 text-green-300" />
+                  <div className="w-12 h-12 bg-green-500/50 rounded-full flex items-center justify-center shadow-inner">
+                    <DollarSign className="w-6 h-6 text-green-200" />
                   </div>
                 </div>
               </Card>

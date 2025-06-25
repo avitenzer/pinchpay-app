@@ -20,6 +20,17 @@ export default function LandingPage() {
   })
 
   const [daysToPayout, setDaysToPayout] = useState(0)
+  const [monthlyBenefit, setMonthlyBenefit] = useState("")
+  const [emailAddress, setEmailAddress] = useState("")
+  const [estimatedAdvance, setEstimatedAdvance] = useState(0)
+  const [showEstimator, setShowEstimator] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [submittedData, setSubmittedData] = useState<{
+    email: string
+    benefit: string
+    estimate: number
+  } | null>(null)
 
   useEffect(() => {
     const info = detectDevice()
@@ -43,9 +54,58 @@ export default function LandingPage() {
     setDaysToPayout(days)
   }, [])
 
+  // Calculate estimated advance based on monthly benefit
+  useEffect(() => {
+    if (monthlyBenefit && !isNaN(parseFloat(monthlyBenefit))) {
+      const benefit = parseFloat(monthlyBenefit)
+      // Conservative estimate: 15-25% of monthly benefit, capped at reasonable amounts
+      const percentage = benefit > 2000 ? 0.15 : 0.25
+      const estimated = Math.min(Math.floor(benefit * percentage), 500)
+      setEstimatedAdvance(estimated)
+    } else {
+      setEstimatedAdvance(0)
+    }
+  }, [monthlyBenefit])
+
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showSuccessModal) {
+        setShowSuccessModal(false)
+        setMonthlyBenefit("")
+        setEmailAddress("")
+      }
+    }
+    
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [showSuccessModal])
+
+  const handleEstimatorSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!emailAddress || !monthlyBenefit) return
+    
+    setIsSubmitting(true)
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    setIsSubmitting(false)
+    
+    // Here you would typically send to your backend
+    console.log('Lead submitted:', { emailAddress, monthlyBenefit, estimatedAdvance })
+    
+    // Store data and show success modal
+    setSubmittedData({
+      email: emailAddress,
+      benefit: monthlyBenefit,
+      estimate: estimatedAdvance
+    })
+    setShowSuccessModal(true)
+    setShowEstimator(false)
+  }
+
   const handleConnectAccount = () => {
-    // Redirect to Plaid OAuth flow
-    window.location.href = "/connect-bank"
+    // Redirect to Social Security sign-up flow
+    window.location.href = "/sign-up"
   }
 
   return (
@@ -150,25 +210,144 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12 animate-slide-in-left delay-300">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200 animate-pulse-slow shadow-lg"
-                onClick={handleConnectAccount}
-              >
-                Get Your Advance Today
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+            {/* Enhanced CTA Section */}
+            <div className="animate-slide-in-left delay-300 mb-12">
+              {!showEstimator ? (
+                <div className="space-y-6">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200 animate-pulse-slow shadow-lg"
+                      onClick={() => setShowEstimator(true)}
+                    >
+                      See How Much You Can Access
+                      <DollarSign className="ml-2 w-5 h-5" />
+                    </Button>
 
-              {deviceInfo.hasWhatsApp && (
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200"
-                >
-                  <Smartphone className="mr-2 w-5 h-5" />
-                  Continue on WhatsApp
-                </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="bg-transparent border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200"
+                      onClick={handleConnectAccount}
+                    >
+                      Access Your Benefits
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </div>
+
+                  {deviceInfo.hasWhatsApp && (
+                    <div className="flex justify-center lg:justify-start">
+                      <Button
+                        variant="ghost"
+                        className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
+                        onClick={() => window.open("https://wa.me/1234567890", "_blank")}
+                      >
+                        <Smartphone className="mr-2 w-4 h-4" />
+                        Or continue on WhatsApp
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Card className="bg-white/10 border-white/20 backdrop-blur-sm p-6 mb-6">
+                  <form onSubmit={handleEstimatorSubmit} className="space-y-6">
+                    <div className="text-center mb-4">
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        💰 Quick Benefit Calculator
+                      </h3>
+                      <p className="text-gray-300 text-sm">
+                        See how much $$$ you could access between payments
+                      </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-white text-sm font-medium mb-2">
+                          Monthly Social Security Benefit
+                        </label>
+                        <div className="relative">
+                          <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                          <input
+                            type="number"
+                            placeholder="1,500"
+                            value={monthlyBenefit}
+                            onChange={(e) => setMonthlyBenefit(e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-white text-sm font-medium mb-2">
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={emailAddress}
+                          onChange={(e) => setEmailAddress(e.target.value)}
+                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {estimatedAdvance > 0 && (
+                      <div className="text-center p-4 bg-green-500/20 border border-green-500/30 rounded-lg animate-slide-in-down">
+                        <p className="text-green-300 text-sm mb-1">You could access:</p>
+                        <p className="text-3xl font-bold text-white animate-countdown-tick">
+                          ${estimatedAdvance}
+                        </p>
+                        <p className="text-green-300 text-xs">multiple times per month</p>
+                      </div>
+                    )}
+
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting || !emailAddress || !monthlyBenefit}
+                        className="flex-1 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-3 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Calculating...
+                          </>
+                        ) : (
+                          <>
+                            Get My Estimate
+                            <Zap className="ml-2 w-4 h-4" />
+                          </>
+                        )}
+                      </Button>
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowEstimator(false)}
+                        className="bg-transparent border-white/30 text-white hover:bg-white/10"
+                      >
+                        Back
+                      </Button>
+                    </div>
+
+                                         <div className="grid grid-cols-3 gap-2 text-center text-xs text-gray-400">
+                       <div className="flex items-center justify-center">
+                         <Shield className="w-3 h-3 mr-1" />
+                         SSA Verified
+                       </div>
+                       <div className="flex items-center justify-center">
+                         <Clock className="w-3 h-3 mr-1" />
+                         2-min setup
+                       </div>
+                       <div className="flex items-center justify-center">
+                         <CheckCircle className="w-3 h-3 mr-1" />
+                         No credit check
+                       </div>
+                     </div>
+                  </form>
+                </Card>
               )}
             </div>
 
@@ -270,13 +449,13 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { 
-                step: 1, 
-                title: "Connect Safely", 
-                description: "Link your bank account with bank-level security", 
-                icon: Shield,
-                detail: "Same security used by major banks"
-              },
+                             { 
+                 step: 1, 
+                 title: "Verify Benefits", 
+                 description: "Securely verify your Social Security benefits", 
+                 icon: Shield,
+                 detail: "SSA-approved verification process"
+               },
               { 
                 step: 2, 
                 title: "Instant Approval", 
@@ -341,20 +520,153 @@ export default function LandingPage() {
             Join thousands of Social Security recipients who trust PinchPay for early access to their benefits
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-12 py-4 text-xl transform hover:scale-110 transition-all duration-300 animate-bounce-slow shadow-xl"
-              onClick={handleConnectAccount}
-            >
-              Get Started Now
-              <Zap className="ml-2 w-6 h-6" />
-            </Button>
+                          <Button
+                size="lg"
+                className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-12 py-4 text-xl transform hover:scale-110 transition-all duration-300 animate-bounce-slow shadow-xl"
+                onClick={handleConnectAccount}
+              >
+                Access My Benefits
+                <Zap className="ml-2 w-6 h-6" />
+              </Button>
             <p className="text-sm text-gray-300">
-              💳 No credit check required • 🔒 Bank-level security • ⚡ Usually approved in minutes
+              💳 No credit check required • 🔒 SSA-verified process • ⚡ Usually approved in minutes
             </p>
           </div>
         </div>
       </main>
+
+      {/* Success Modal */}
+      {showSuccessModal && submittedData && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-slide-in-down"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowSuccessModal(false)
+              // Reset form for potential reuse
+              setMonthlyBenefit("")
+              setEmailAddress("")
+            }
+          }}
+        >
+          <div className="bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden animate-slide-in-up">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-green-500 to-blue-500 p-6 text-center relative">
+              <button
+                onClick={() => {
+                  setShowSuccessModal(false)
+                  setMonthlyBenefit("")
+                  setEmailAddress("")
+                }}
+                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                <CheckCircle className="w-8 h-8 text-white" />
+              </div>
+              
+              <h3 className="text-2xl font-bold text-white mb-2">
+                You're All Set! 🎉
+              </h3>
+              <p className="text-white/90 text-sm">
+                Your personalized benefit estimate is ready
+              </p>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-6">
+              {/* Estimate Display */}
+              <div className="text-center p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border border-green-200">
+                <p className="text-gray-600 text-sm mb-1">Based on your ${submittedData.benefit} monthly benefit:</p>
+                <div className="text-4xl font-bold text-green-600 mb-1 animate-countdown-tick">
+                  ${submittedData.estimate}
+                </div>
+                <p className="text-green-600 text-sm font-medium">
+                  Available multiple times per month
+                </p>
+              </div>
+
+              {/* What's Next */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-gray-800 flex items-center">
+                  <Star className="w-4 h-4 text-yellow-500 mr-2" />
+                  What happens next?
+                </h4>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-start">
+                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                      <span className="text-green-600 font-bold text-xs">1</span>
+                    </div>
+                    <p>We'll send detailed information to <strong>{submittedData.email}</strong></p>
+                  </div>
+                                     <div className="flex items-start">
+                     <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                       <span className="text-blue-600 font-bold text-xs">2</span>
+                     </div>
+                     <p>Complete your benefit access setup (2 minutes)</p>
+                   </div>
+                  <div className="flex items-start">
+                    <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                      <span className="text-purple-600 font-bold text-xs">3</span>
+                    </div>
+                    <p>Start accessing your $$$ between Social Security payments</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Trust Indicators */}
+                             <div className="grid grid-cols-3 gap-3 text-center text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
+                 <div className="flex flex-col items-center">
+                   <Shield className="w-4 h-4 text-green-500 mb-1" />
+                   <span>SSA Verified</span>
+                 </div>
+                 <div className="flex flex-col items-center">
+                   <Clock className="w-4 h-4 text-blue-500 mb-1" />
+                   <span>2-Min Setup</span>
+                 </div>
+                 <div className="flex flex-col items-center">
+                   <CheckCircle className="w-4 h-4 text-purple-500 mb-1" />
+                   <span>No Credit Check</span>
+                 </div>
+               </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-3">
+                                 <Button
+                   className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-3 transform hover:scale-105 transition-all duration-200"
+                   onClick={() => {
+                     setShowSuccessModal(false)
+                     handleConnectAccount()
+                   }}
+                 >
+                   <Zap className="w-4 h-4 mr-2" />
+                   Start Accessing Benefits
+                 </Button>
+                
+                <Button
+                  variant="outline"
+                  className="w-full border-gray-300 text-gray-600 hover:bg-gray-50"
+                  onClick={() => {
+                    setShowSuccessModal(false)
+                    setMonthlyBenefit("")
+                    setEmailAddress("")
+                  }}
+                >
+                  I'll Check My Email First
+                </Button>
+              </div>
+
+              {/* Footer Note */}
+                             <p className="text-xs text-gray-400 text-center">
+                 💌 Check your email in the next few minutes for your benefit access instructions
+               </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 mt-16 border-t border-white/10 relative z-10">
@@ -368,8 +680,8 @@ export default function LandingPage() {
               <span className="text-xl font-bold text-white">PinchPay</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Dedicated to helping Social Security recipients access their benefits when they need them most. 
-              Bridge the gap between monthly payments with confidence.
+              Dedicated to helping Social Security recipients verify their benefits and access advances when they need them most. 
+              Bridge the gap between monthly payments with confidence and security.
             </p>
           </div>
 
