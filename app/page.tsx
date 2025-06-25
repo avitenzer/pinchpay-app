@@ -109,20 +109,19 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 overflow-hidden relative">
-      {/* Animated Background Elements - More calming for seniors */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-green-400/10 rounded-full blur-3xl animate-ping delay-2000"></div>
-      </div>
+         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 overflow-hidden relative">
+       {/* Animated Background Elements - Optimized for contrast */}
+        <div className="absolute inset-0 overflow-hidden">
+         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
       {/* Floating Calendar Icons representing monthly payments */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className={`absolute animate-float text-green-400/40 text-xl`}
+            className={`absolute animate-float text-blue-300/60 text-xl`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -139,22 +138,22 @@ export default function LandingPage() {
       <header className="container mx-auto px-4 py-6 relative z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 animate-slide-in-left">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-lg flex items-center justify-center animate-bounce">
+            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center animate-bounce">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-white">PinchPay</span>
-            <Badge variant="secondary" className="bg-green-500/20 text-green-300 border-green-500/30 ml-2">
+            <Badge variant="secondary" className="bg-blue-500/20 text-blue-200 border-blue-500/30 ml-2">
               For Social Security Recipients
             </Badge>
           </div>
           <div className="flex items-center space-x-4">
-            <Badge variant="secondary" className="bg-white/10 text-white border-white/20 animate-slide-in-right">
+            <Badge variant="secondary" className="bg-slate-800/80 text-slate-200 border-slate-600 animate-slide-in-right">
               {deviceInfo.hasWhatsApp ? "WhatsApp Ready" : "Senior Friendly"}
             </Badge>
             <Button
               variant="outline"
               size="sm"
-              className="border-green-500 text-green-400 hover:bg-green-500/10 hover:text-green-300"
+              className="border-blue-500 text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 bg-transparent"
               onClick={() => window.open("/wireframes", "_blank")}
             >
               📱 View WhatsApp Alerts
@@ -170,41 +169,41 @@ export default function LandingPage() {
           <div className="text-center lg:text-left">
             <div className="animate-slide-in-left">
               {/* Urgency Badge */}
-              <div className="inline-flex items-center bg-red-500/20 border border-red-500/30 rounded-full px-4 py-2 mb-6">
-                <Clock className="w-4 h-4 text-red-400 mr-2 animate-pulse" />
-                <span className="text-red-300 text-sm font-medium">
+              <div className="inline-flex items-center bg-orange-500/20 border border-orange-400/40 rounded-full px-4 py-2 mb-6">
+                <Clock className="w-4 h-4 text-orange-300 mr-2 animate-pulse" />
+                <span className="text-orange-200 text-sm font-medium">
                   {daysToPayout > 0 ? `${daysToPayout} days until your next payment` : "Payment day is today!"}
                 </span>
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
                 Don't Wait Until the
-                <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x block mt-2">
+                <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent animate-gradient-x block mt-2">
                   6th of the Month
                 </span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-gray-200 mb-4 max-w-2xl mx-auto lg:mx-0 font-medium">
+              <p className="text-xl md:text-2xl text-slate-200 mb-4 max-w-2xl mx-auto lg:mx-0 font-medium">
                 Access your Social Security benefits early when life happens
               </p>
 
-                             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
-                 We understand waiting 30 days between payments is hard. Access $$$ from your Social Security benefits 
-                 multiple times throughout the month when you need them most.
-               </p>
+              <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto lg:mx-0">
+                We understand waiting 30 days between payments is hard. Access $$$ from your Social Security benefits 
+                multiple times throughout the month when you need them most.
+              </p>
             </div>
 
             {/* Trust Indicators */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8 animate-slide-in-left delay-200">
-              <div className="flex items-center text-green-400">
+              <div className="flex items-center text-blue-300">
                 <Shield className="w-5 h-5 mr-2" />
                 <span className="text-sm font-medium">FDIC Insured</span>
               </div>
-              <div className="flex items-center text-blue-400">
+              <div className="flex items-center text-indigo-300">
                 <CheckCircle className="w-5 h-5 mr-2" />
                 <span className="text-sm font-medium">SSA Approved Process</span>
               </div>
-              <div className="flex items-center text-purple-400">
+              <div className="flex items-center text-yellow-300">
                 <Star className="w-5 h-5 mr-2" />
                 <span className="text-sm font-medium">4.8/5 Rating</span>
               </div>
@@ -217,7 +216,7 @@ export default function LandingPage() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200 animate-pulse-slow shadow-lg"
+                      className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200 animate-pulse-slow shadow-lg"
                       onClick={() => setShowEstimator(true)}
                     >
                       See How Much You Can Access
@@ -227,7 +226,7 @@ export default function LandingPage() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="bg-transparent border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200"
+                      className="bg-transparent border-slate-400 text-slate-200 hover:bg-slate-700/50 hover:text-white px-8 py-4 text-lg transform hover:scale-105 transition-all duration-200"
                       onClick={handleConnectAccount}
                     >
                       Access Your Benefits
@@ -239,7 +238,7 @@ export default function LandingPage() {
                     <div className="flex justify-center lg:justify-start">
                       <Button
                         variant="ghost"
-                        className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
+                        className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
                         onClick={() => window.open("https://wa.me/1234567890", "_blank")}
                       >
                         <Smartphone className="mr-2 w-4 h-4" />
@@ -249,13 +248,13 @@ export default function LandingPage() {
                   )}
                 </div>
               ) : (
-                <Card className="bg-white/10 border-white/20 backdrop-blur-sm p-6 mb-6">
+                <Card className="bg-slate-800/80 border-slate-600 backdrop-blur-sm p-6 mb-6">
                   <form onSubmit={handleEstimatorSubmit} className="space-y-6">
                     <div className="text-center mb-4">
                       <h3 className="text-xl font-bold text-white mb-2">
                         💰 Quick Benefit Calculator
                       </h3>
-                      <p className="text-gray-300 text-sm">
+                      <p className="text-slate-300 text-sm">
                         See how much $$$ you could access between payments
                       </p>
                     </div>
@@ -266,13 +265,13 @@ export default function LandingPage() {
                           Monthly Social Security Benefit
                         </label>
                         <div className="relative">
-                          <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                          <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
                           <input
                             type="number"
                             placeholder="1,500"
                             value={monthlyBenefit}
                             onChange={(e) => setMonthlyBenefit(e.target.value)}
-                            className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className="w-full pl-10 pr-4 py-3 bg-slate-700/60 border border-slate-500 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             required
                           />
                         </div>
@@ -287,19 +286,19 @@ export default function LandingPage() {
                           placeholder="your.email@example.com"
                           value={emailAddress}
                           onChange={(e) => setEmailAddress(e.target.value)}
-                          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                          className="w-full px-4 py-3 bg-slate-700/60 border border-slate-500 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           required
                         />
                       </div>
                     </div>
 
                     {estimatedAdvance > 0 && (
-                      <div className="text-center p-4 bg-green-500/20 border border-green-500/30 rounded-lg animate-slide-in-down">
-                        <p className="text-green-300 text-sm mb-1">You could access:</p>
+                      <div className="text-center p-4 bg-blue-500/20 border border-blue-400/40 rounded-lg animate-slide-in-down">
+                        <p className="text-blue-200 text-sm mb-1">You could access:</p>
                         <p className="text-3xl font-bold text-white animate-countdown-tick">
                           ${estimatedAdvance}
                         </p>
-                        <p className="text-green-300 text-xs">multiple times per month</p>
+                        <p className="text-blue-200 text-xs">multiple times per month</p>
                       </div>
                     )}
 
@@ -307,7 +306,7 @@ export default function LandingPage() {
                       <Button
                         type="submit"
                         disabled={isSubmitting || !emailAddress || !monthlyBenefit}
-                        className="flex-1 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-3 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? (
                           <>
@@ -326,13 +325,13 @@ export default function LandingPage() {
                         type="button"
                         variant="outline"
                         onClick={() => setShowEstimator(false)}
-                        className="bg-transparent border-white/30 text-white hover:bg-white/10"
+                        className="bg-transparent border-slate-400 text-slate-200 hover:bg-slate-700/50"
                       >
                         Back
                       </Button>
                     </div>
 
-                                         <div className="grid grid-cols-3 gap-2 text-center text-xs text-gray-400">
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs text-slate-400">
                        <div className="flex items-center justify-center">
                          <Shield className="w-3 h-3 mr-1" />
                          SSA Verified
@@ -355,25 +354,25 @@ export default function LandingPage() {
             <div className="grid grid-cols-3 gap-4 mb-8 animate-slide-in-left delay-500">
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-white animate-count-up">$86B</div>
-                <div className="text-xs md:text-sm text-gray-400">Monthly Social Security Benefits</div>
+                <div className="text-xs md:text-sm text-slate-400">Monthly Social Security Benefits</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-white animate-count-up delay-200">67M+</div>
-                <div className="text-xs md:text-sm text-gray-400">Social Security Recipients</div>
+                <div className="text-xs md:text-sm text-slate-400">Social Security Recipients</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-white animate-count-up delay-400">24hrs</div>
-                <div className="text-xs md:text-sm text-gray-400">Average Approval Time</div>
+                <div className="text-xs md:text-sm text-slate-400">Average Approval Time</div>
               </div>
             </div>
 
             {/* Pain Point Callout */}
-            <div className="bg-orange-500/20 border border-orange-500/30 rounded-xl p-6 mb-8 animate-slide-in-left delay-600">
+            <div className="bg-orange-500/20 border border-orange-400/40 rounded-xl p-6 mb-8 animate-slide-in-left delay-600">
               <div className="flex items-start space-x-3">
-                <Calendar className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+                <Calendar className="w-6 h-6 text-orange-300 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="text-white font-semibold mb-2">We Know Monthly Payments Are Tough</h3>
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-slate-300 text-sm">
                     Rent, groceries, medications - life doesn't wait for the 6th. 
                     That's why we created a safe way to access your earned benefits early.
                   </p>
@@ -384,16 +383,16 @@ export default function LandingPage() {
 
           {/* Right Column - Phone Mockup with countdown */}
           <div className="flex flex-col items-center lg:items-end animate-slide-in-right">
-            <div className="mb-6 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+            <div className="mb-6 p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-600">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-white mb-2">Next Payment Countdown</h3>
-                <div className="text-5xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent mb-2">
                   {daysToPayout}
                 </div>
-                <p className="text-gray-300">days until your Social Security payment</p>
-                <div className="mt-4 w-full bg-gray-700 rounded-full h-2">
+                <p className="text-slate-300">days until your Social Security payment</p>
+                <div className="mt-4 w-full bg-slate-600 rounded-full h-2">
                   <div 
-                    className="bg-gradient-to-r from-green-400 to-blue-400 h-2 rounded-full transition-all duration-1000"
+                    className="bg-gradient-to-r from-blue-400 to-indigo-400 h-2 rounded-full transition-all duration-1000"
                     style={{ width: `${Math.max(10, 100 - (daysToPayout / 30 * 100))}%` }}
                   ></div>
                 </div>
@@ -405,37 +404,37 @@ export default function LandingPage() {
 
         {/* Features Grid - Specifically for Social Security Recipients */}
         <div className="grid md:grid-cols-3 gap-6 mb-16 mt-16">
-          <Card className="bg-white/10 border-white/20 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-slide-in-up">
+          <Card className="bg-slate-800/80 border-slate-600 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-slide-in-up">
             <CardHeader>
-              <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-400 rounded-lg flex items-center justify-center mb-4 animate-bounce">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mb-4 animate-bounce">
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <CardTitle className="text-white">Designed for Seniors</CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-slate-300">
                 Simple, secure process built with Social Security recipients in mind. No hidden fees or complicated terms.
               </CardDescription>
             </CardHeader>
           </Card>
 
-          <Card className="bg-white/10 border-white/20 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-slide-in-up delay-200">
+          <Card className="bg-slate-800/80 border-slate-600 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-slide-in-up delay-200">
             <CardHeader>
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-400 rounded-lg flex items-center justify-center mb-4 animate-bounce delay-200">
+              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg flex items-center justify-center mb-4 animate-bounce delay-200">
                 <Calendar className="w-6 h-6 text-white" />
               </div>
               <CardTitle className="text-white">Monthly Payment Sync</CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-slate-300">
                 We understand your payment schedule. Get advances that align with your Social Security calendar.
               </CardDescription>
             </CardHeader>
           </Card>
 
-          <Card className="bg-white/10 border-white/20 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-slide-in-up delay-400">
+          <Card className="bg-slate-800/80 border-slate-600 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-slide-in-up delay-400">
             <CardHeader>
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg flex items-center justify-center mb-4 animate-bounce delay-400">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center mb-4 animate-bounce delay-400">
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <CardTitle className="text-white">Compassionate Support</CardTitle>
-              <CardDescription className="text-gray-300">
+              <CardDescription className="text-slate-300">
                 Our team understands the unique needs of Social Security recipients. Get help when you need it.
               </CardDescription>
             </CardHeader>
@@ -445,7 +444,7 @@ export default function LandingPage() {
         {/* How It Works - Simplified for Seniors */}
         <div className="text-center max-w-5xl mx-auto animate-slide-in-up delay-600">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How PinchPay Works for You</h2>
-          <p className="text-gray-300 mb-12 text-lg">Simple steps designed for Social Security recipients</p>
+          <p className="text-slate-300 mb-12 text-lg">Simple steps designed for Social Security recipients</p>
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
@@ -480,25 +479,25 @@ export default function LandingPage() {
             ].map((item, index) => (
               <div
                 key={item.step}
-                className="text-center animate-slide-in-up bg-white/5 rounded-2xl p-6 border border-white/10"
+                className="text-center animate-slide-in-up bg-slate-800/50 rounded-2xl p-6 border border-slate-600"
                 style={{ animationDelay: `${600 + index * 150}ms` }}
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-400 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-4 animate-pulse-slow">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-4 animate-pulse-slow">
                   <item.icon className="w-8 h-8" />
                 </div>
                 <div className="bg-blue-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center mx-auto mb-3">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-300 text-sm mb-2">{item.description}</p>
-                <p className="text-green-400 text-xs font-medium">{item.detail}</p>
+                <p className="text-slate-300 text-sm mb-2">{item.description}</p>
+                <p className="text-blue-400 text-xs font-medium">{item.detail}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Testimonial Section */}
-        <div className="mt-20 bg-gradient-to-r from-blue-500/20 to-green-500/20 rounded-3xl border border-white/10 backdrop-blur-sm p-8 animate-slide-in-up delay-800">
+        <div className="mt-20 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-3xl border border-slate-600 backdrop-blur-sm p-8 animate-slide-in-up delay-800">
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
               {[...Array(5)].map((_, i) => (
@@ -509,26 +508,26 @@ export default function LandingPage() {
               "PinchPay helped me when my prescription costs went up unexpectedly. 
               I didn't have to wait until the 6th to get my medication."
             </blockquote>
-            <cite className="text-gray-300">- Margaret S., Social Security Recipient since 2019</cite>
+            <cite className="text-slate-300">- Margaret S., Social Security Recipient since 2019</cite>
           </div>
         </div>
 
         {/* Final CTA Section */}
-        <div className="mt-20 p-8 bg-gradient-to-r from-green-500/30 to-blue-500/30 rounded-3xl border border-white/20 backdrop-blur-sm text-center animate-slide-in-up delay-1000">
+        <div className="mt-20 p-8 bg-gradient-to-r from-blue-500/30 to-indigo-500/30 rounded-3xl border border-slate-600 backdrop-blur-sm text-center animate-slide-in-up delay-1000">
           <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Bridge the Gap?</h3>
-          <p className="text-gray-200 mb-8 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-200 mb-8 text-lg max-w-2xl mx-auto">
             Join thousands of Social Security recipients who trust PinchPay for early access to their benefits
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-                          <Button
-                size="lg"
-                className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-12 py-4 text-xl transform hover:scale-110 transition-all duration-300 animate-bounce-slow shadow-xl"
-                onClick={handleConnectAccount}
-              >
-                Access My Benefits
-                <Zap className="ml-2 w-6 h-6" />
-              </Button>
-            <p className="text-sm text-gray-300">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-4 text-xl transform hover:scale-110 transition-all duration-300 animate-bounce-slow shadow-xl"
+              onClick={handleConnectAccount}
+            >
+              Access My Benefits
+              <Zap className="ml-2 w-6 h-6" />
+            </Button>
+            <p className="text-sm text-slate-300">
               💳 No credit check required • 🔒 SSA-verified process • ⚡ Usually approved in minutes
             </p>
           </div>
@@ -550,7 +549,7 @@ export default function LandingPage() {
         >
           <div className="bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden animate-slide-in-up">
             {/* Header */}
-            <div className="bg-gradient-to-r from-green-500 to-blue-500 p-6 text-center relative">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-center relative">
               <button
                 onClick={() => {
                   setShowSuccessModal(false)
@@ -579,12 +578,12 @@ export default function LandingPage() {
             {/* Content */}
             <div className="p-6 space-y-6">
               {/* Estimate Display */}
-              <div className="text-center p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border border-green-200">
+              <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
                 <p className="text-gray-600 text-sm mb-1">Based on your ${submittedData.benefit} monthly benefit:</p>
-                <div className="text-4xl font-bold text-green-600 mb-1 animate-countdown-tick">
+                <div className="text-4xl font-bold text-blue-600 mb-1 animate-countdown-tick">
                   ${submittedData.estimate}
                 </div>
-                <p className="text-green-600 text-sm font-medium">
+                <p className="text-blue-600 text-sm font-medium">
                   Available multiple times per month
                 </p>
               </div>
@@ -597,8 +596,8 @@ export default function LandingPage() {
                 </h4>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex items-start">
-                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                      <span className="text-green-600 font-bold text-xs">1</span>
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                      <span className="text-blue-600 font-bold text-xs">1</span>
                     </div>
                     <p>We'll send detailed information to <strong>{submittedData.email}</strong></p>
                   </div>
@@ -620,7 +619,7 @@ export default function LandingPage() {
               {/* Trust Indicators */}
                              <div className="grid grid-cols-3 gap-3 text-center text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
                  <div className="flex flex-col items-center">
-                   <Shield className="w-4 h-4 text-green-500 mb-1" />
+                   <Shield className="w-4 h-4 text-blue-500 mb-1" />
                    <span>SSA Verified</span>
                  </div>
                  <div className="flex flex-col items-center">
@@ -636,7 +635,7 @@ export default function LandingPage() {
               {/* Action Buttons */}
               <div className="flex flex-col gap-3">
                                  <Button
-                   className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-3 transform hover:scale-105 transition-all duration-200"
+                   className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 transform hover:scale-105 transition-all duration-200"
                    onClick={() => {
                      setShowSuccessModal(false)
                      handleConnectAccount()
@@ -669,42 +668,42 @@ export default function LandingPage() {
       )}
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 mt-16 border-t border-white/10 relative z-10">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-lg flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">PinchPay</span>
-            </div>
-            <p className="text-gray-400 text-sm">
-              Dedicated to helping Social Security recipients verify their benefits and access advances when they need them most. 
-              Bridge the gap between monthly payments with confidence and security.
-            </p>
-          </div>
+             <footer className="container mx-auto px-4 py-8 mt-16 border-t border-slate-600 relative z-10">
+         <div className="grid md:grid-cols-4 gap-8 mb-8">
+           {/* Company Info */}
+           <div className="space-y-4">
+             <div className="flex items-center space-x-2">
+               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                 <Heart className="w-5 h-5 text-white" />
+               </div>
+               <span className="text-xl font-bold text-white">PinchPay</span>
+             </div>
+             <p className="text-slate-400 text-sm">
+               Dedicated to helping Social Security recipients verify their benefits and access advances when they need them most. 
+               Bridge the gap between monthly payments with confidence and security.
+             </p>
+           </div>
 
           {/* Company Links */}
           <div className="space-y-4">
             <h3 className="text-white font-semibold">Company</h3>
-            <div className="space-y-2">
-              <button
-                className="block text-gray-400 hover:text-white text-sm transition-colors"
-                onClick={() => (window.location.href = "/about")}
-              >
-                About Us
-              </button>
-              <button
-                className="block text-gray-400 hover:text-white text-sm transition-colors"
-                onClick={() => window.open("/wireframes", "_blank")}
-              >
-                WhatsApp Alerts
-              </button>
-              <button
-                className="block text-gray-400 hover:text-white text-sm transition-colors"
-                onClick={() => (window.location.href = "/dashboard")}
-              >
+                         <div className="space-y-2">
+               <button
+                 className="block text-slate-400 hover:text-white text-sm transition-colors"
+                 onClick={() => (window.location.href = "/about")}
+               >
+                 About Us
+               </button>
+               <button
+                 className="block text-slate-400 hover:text-white text-sm transition-colors"
+                 onClick={() => window.open("/wireframes", "_blank")}
+               >
+                 WhatsApp Alerts
+               </button>
+               <button
+                 className="block text-slate-400 hover:text-white text-sm transition-colors"
+                 onClick={() => (window.location.href = "/dashboard")}
+               >
                 Dashboard
               </button>
             </div>
@@ -715,13 +714,13 @@ export default function LandingPage() {
             <h3 className="text-white font-semibold">Legal</h3>
             <div className="space-y-2">
               <button
-                className="block text-gray-400 hover:text-white text-sm transition-colors"
+                className="block text-slate-400 hover:text-white text-sm transition-colors"
                 onClick={() => (window.location.href = "/terms")}
               >
                 Terms of Use
               </button>
               <button
-                className="block text-gray-400 hover:text-white text-sm transition-colors"
+                className="block text-slate-400 hover:text-white text-sm transition-colors"
                 onClick={() => (window.location.href = "/privacy")}
               >
                 Privacy Policy
@@ -733,10 +732,10 @@ export default function LandingPage() {
           <div className="space-y-4">
             <h3 className="text-white font-semibold">Support</h3>
             <div className="space-y-2">
-              <p className="text-gray-400 text-sm">support@pinchpay.com</p>
-              <p className="text-gray-400 text-sm">1-555-PINCHPAY</p>
+              <p className="text-slate-400 text-sm">support@pinchpay.com</p>
+              <p className="text-slate-400 text-sm">1-555-PINCHPAY</p>
               <button
-                className="block text-gray-400 hover:text-white text-sm transition-colors"
+                className="block text-slate-400 hover:text-white text-sm transition-colors"
                 onClick={() => window.open("https://wa.me/1234567890", "_blank")}
               >
                 WhatsApp Support
@@ -745,7 +744,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="text-center text-gray-400 pt-8 border-t border-white/10">
+        <div className="text-center text-slate-400 pt-8 border-t border-slate-600">
           <p>&copy; 2024 PinchPay. All rights reserved. | FDIC Insured | SOC 2 Compliant | Serving Social Security Recipients Nationwide</p>
         </div>
       </footer>
